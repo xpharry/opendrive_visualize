@@ -12,24 +12,19 @@
 
 #pragma once
 
-#include <string>
 #include "opendrive/types.hpp"
+#include <string>
 
 namespace opendrive {
 namespace parser {
 
-enum class XmlInputType : int
-{
-  FILE,
-  CONTENT
-};
+enum class XmlInputType : int { FILE, CONTENT };
 
-struct OpenDriveParser
-{
+struct OpenDriveParser {
   static bool Parse(const char *xml,
                     opendrive::OpenDriveData &out_open_drive_data,
-                    XmlInputType inputType,
-                    std::string *out_error = nullptr);
+                    XmlInputType inputType, std::string *out_error = nullptr);
 };
-}
-}
+
+} // namespace parser
+} // namespace opendrive

@@ -13,9 +13,9 @@
 #include "opendrive/parser/TrafficSignParser.h"
 #include <iostream>
 
-void opendrive::parser::TrafficSignParser::Parse(const pugi::xml_node &xmlNode,
-                                                 std::vector<opendrive::TrafficSign> &out_trafficsigns)
-{
+void opendrive::parser::TrafficSignParser::Parse(
+    const pugi::xml_node &xmlNode,
+    std::vector<opendrive::TrafficSign> &out_trafficsigns) {
   opendrive::parser::TrafficSignParser parser;
   opendrive::TrafficSign trafficsign;
 
@@ -31,12 +31,11 @@ void opendrive::parser::TrafficSignParser::Parse(const pugi::xml_node &xmlNode,
   out_trafficsigns.emplace_back(trafficsign);
 }
 
-void opendrive::parser::TrafficSignParser::ParseBoxAreas(const pugi::xml_node &xmlNode,
-                                                         std::vector<opendrive::BoxComponent> &out_boxcomponent)
-{
+void opendrive::parser::TrafficSignParser::ParseBoxAreas(
+    const pugi::xml_node &xmlNode,
+    std::vector<opendrive::BoxComponent> &out_boxcomponent) {
   for (pugi::xml_node boxcomponent = xmlNode.child("tsBox"); boxcomponent;
-       boxcomponent = boxcomponent.next_sibling("tsBox"))
-  {
+       boxcomponent = boxcomponent.next_sibling("tsBox")) {
     opendrive::BoxComponent jBoxComponent;
 
     jBoxComponent.x_pos = std::stod(boxcomponent.attribute("xPos").value());

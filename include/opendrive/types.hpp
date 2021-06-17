@@ -21,17 +21,9 @@
 
 namespace opendrive {
 
-enum class GeometryType : unsigned int
-{
-  ARC,
-  LINE,
-  SPIRAL,
-  POLY3,
-  PARAMPOLY3
-};
+enum class GeometryType : unsigned int { ARC, LINE, SPIRAL, POLY3, PARAMPOLY3 };
 
-enum class LaneType : std::uint8_t
-{
+enum class LaneType : std::uint8_t {
   None,
   Driving,
   Stop,
@@ -55,8 +47,7 @@ enum class LaneType : std::uint8_t
   OnRamp
 };
 
-enum class RoadType : std::uint8_t
-{
+enum class RoadType : std::uint8_t {
   Unknown,
   Tural,
   Motorway,
@@ -66,8 +57,7 @@ enum class RoadType : std::uint8_t
   Bicycle
 };
 
-enum class RoadmarkType : std::uint8_t
-{
+enum class RoadmarkType : std::uint8_t {
   None,
   Solid,
   Broken,
@@ -80,64 +70,34 @@ enum class RoadmarkType : std::uint8_t
   Curb
 };
 
-enum class ElementType : std::uint8_t
-{
-  Invalid,
-  Junction,
-  Road
-};
+enum class ElementType : std::uint8_t { Invalid, Junction, Road };
 
-enum class ContactPoint : std::uint8_t
-{
-  Invalid,
-  Start,
-  End
-};
+enum class ContactPoint : std::uint8_t { Invalid, Start, End };
 
-struct Point
-{
+struct Point {
   double x{0.};
   double y{0.};
 
-  Point(double _x, double _y)
-    : x(_x)
-    , y(_y)
-  {
-  }
+  Point(double _x, double _y) : x(_x), y(_y) {}
 
-  bool operator==(const Point &rhs) const
-  {
+  bool operator==(const Point &rhs) const {
     // Points are treated as equal when below 1 mm
     return (std::fabs(x - rhs.x) < 1e-3) && (std::fabs(y - rhs.y) < 1e-3);
   }
-  bool operator!=(const Point &rhs) const
-  {
-    return !operator==(rhs);
-  }
+  bool operator!=(const Point &rhs) const { return !operator==(rhs); }
 
-  double normSquared() const
-  {
-    return x * x + y * y;
-  }
+  double normSquared() const { return x * x + y * y; }
 
-  double norm() const
-  {
-    return sqrt(normSquared());
-  }
+  double norm() const { return sqrt(normSquared()); }
 
-  double dot(const Point &other) const
-  {
-    return x * other.x + y * other.y;
-  }
+  double dot(const Point &other) const { return x * other.x + y * other.y; }
 };
 
-inline Point operator-(const Point &left, const Point &right)
-{
+inline Point operator-(const Point &left, const Point &right) {
   return Point(left.x - right.x, left.y - right.y);
 }
 
-struct GeometryAttributes
-{
+struct GeometryAttributes {
   GeometryType type; // geometry type
   double length;     // length of the road section
                      // [meters]
@@ -149,32 +109,27 @@ struct GeometryAttributes
   double start_position_y; // [meters]
 };
 
-struct GeometryAttributesArc : public GeometryAttributes
-{
+struct GeometryAttributesArc : public GeometryAttributes {
   double curvature{0.};
 };
 
-struct GeometryAttributesLine : public GeometryAttributes
-{
+struct GeometryAttributesLine : public GeometryAttributes {
   // Nothing else here
 };
 
-struct GeometryAttributesSpiral : public GeometryAttributes
-{
+struct GeometryAttributesSpiral : public GeometryAttributes {
   double curve_start{0.};
   double curve_end{0.};
 };
 
-struct GeometryAttributesPoly3 : public GeometryAttributes
-{
+struct GeometryAttributesPoly3 : public GeometryAttributes {
   double a{0.};
   double b{0.};
   double c{0.};
   double d{0.};
 };
 
-struct GeometryAttributesParamPoly3 : public GeometryAttributes
-{
+struct GeometryAttributesParamPoly3 : public GeometryAttributes {
   double aU{0.};
   double bU{0.};
   double cU{0.};
@@ -188,15 +143,13 @@ struct GeometryAttributesParamPoly3 : public GeometryAttributes
 
 /////////////////////////////////////////////////////////////////
 
-struct LaneAttributes
-{
+struct LaneAttributes {
   int id;
   LaneType type;
   std::string level;
 };
 
-struct LaneWidth
-{
+struct LaneWidth {
   double soffset; // start position (s-offset) [meters]
   double a;       // a - width [meters]
   double b;       // b
@@ -204,8 +157,7 @@ struct LaneWidth
   double d;       // d
 };
 
-struct LaneRoadMark
-{
+struct LaneRoadMark {
   double soffset = 0.0;
   double width = 0.0;
 
@@ -220,55 +172,39 @@ struct LaneRoadMark
   std::string lane_change = "none";
 };
 
-struct LaneOffset
-{
+struct LaneOffset {
   double s, a, b, c, d;
 };
 
-struct LaneSpeed
-{
+struct LaneSpeed {
   double soffset;   // start position(s - offset from the
                     // current lane section) [meters]
   double max_speed; // maximum allowed speed [meters/second]
   std::string unit;
 };
 
-struct LaneLink
-{
+struct LaneLink {
   int predecessor_id;
   int successor_id;
 };
 
-struct ParametricSpeed
-{
+struct ParametricSpeed {
   double start{0.};
   double end{1.};
   double speed{0.};
 
-  ParametricSpeed()
-    : start{0.}
-    , end{1.0}
-    , speed{0.}
-  {
-  }
-  ParametricSpeed(double _speed)
-    : start{0.}
-    , end{1.0}
-    , speed{_speed}
-  {
-  }
+  ParametricSpeed() : start{0.}, end{1.0}, speed{0.} {}
+  ParametricSpeed(double _speed) : start{0.}, end{1.0}, speed{_speed} {}
 };
 
-struct TrafficSignalReference
-{
+struct TrafficSignalReference {
   int id{-1};
   double start_position{0.}; // s
   double track_position{0.}; // t
   std::string orientation{""};
 };
 
-struct SignalReference
-{
+struct SignalReference {
   int id{-1};
   double parametricPosition{0.0};
   bool inLaneOrientation{false};
@@ -277,8 +213,7 @@ struct SignalReference
 using Id = uint64_t;
 using Edge = std::vector<Point>;
 
-struct LaneInfo
-{
+struct LaneInfo {
   std::vector<LaneSpeed> lane_speed;
 
   LaneAttributes attributes;
@@ -288,23 +223,20 @@ struct LaneInfo
   std::unique_ptr<LaneLink> link;
 };
 
-struct LaneSection
-{
+struct LaneSection {
   double start_position{0.};
   double end_position{0.}; // extended value
   std::vector<LaneInfo> left, center, right;
 };
 
-struct Lanes
-{
+struct Lanes {
   std::vector<LaneOffset> lane_offset;
   std::vector<LaneSection> lane_sections;
 };
 
 /////////////////////////////////////////////////////////////////
 
-struct ElevationProfile
-{
+struct ElevationProfile {
   double start_position;     // (S) start position(s -
                              // offset)[meters]
   double elevation;          // (A) elevation [meters]
@@ -313,8 +245,7 @@ struct ElevationProfile
   double curvature_change;   // (D)
 };
 
-struct LateralProfile
-{
+struct LateralProfile {
   double start_position;     // (S) start position(s -
                              // offset)[meters]
   double elevation;          // (A) elevation [meters]
@@ -323,16 +254,14 @@ struct LateralProfile
   double curvature_change;   // (D)
 };
 
-struct RoadProfiles
-{
+struct RoadProfiles {
   std::vector<ElevationProfile> elevation_profile;
   std::vector<LateralProfile> lateral_profile;
 };
 
 /////////////////////////////////////////////////////////////////
 
-struct TrafficSignalInformation
-{
+struct TrafficSignalInformation {
   int id;
 
   double start_position; // s
@@ -361,57 +290,43 @@ struct TrafficSignalInformation
 
 /////////////////////////////////////////////////////////////////
 
-struct RoadTypeInfo
-{
+struct RoadTypeInfo {
   double s;
   std::string type;
 };
 
-struct RoadSpeed
-{
+struct RoadSpeed {
   double s;
   double max;
   std::string unit;
 };
 
-struct RoadAttributes
-{
+struct RoadAttributes {
   std::string name;
   int id, junction;
   double length;
   std::vector<RoadTypeInfo> type;
   std::vector<RoadSpeed> speed;
 
-  RoadAttributes()
-    : id(-1)
-    , junction(-1)
-    , length(0.0)
-  {
-  }
+  RoadAttributes() : id(-1), junction(-1), length(0.0) {}
 };
 
-struct RoadLinkInformation
-{
+struct RoadLinkInformation {
   int id;
   ElementType element_type;
   ContactPoint contact_point;
 
   RoadLinkInformation()
-    : id(-1)
-    , element_type(ElementType::Invalid)
-    , contact_point(ContactPoint::Invalid)
-  {
-  }
+      : id(-1), element_type(ElementType::Invalid),
+        contact_point(ContactPoint::Invalid) {}
 };
 
-struct RoadLink
-{
+struct RoadLink {
   std::unique_ptr<RoadLinkInformation> successor;
   std::unique_ptr<RoadLinkInformation> predecessor;
 };
 
-struct RoadInformation
-{
+struct RoadInformation {
   RoadLink road_link;
   RoadProfiles road_profiles;
 
@@ -426,100 +341,66 @@ struct RoadInformation
 
 /////////////////////////////////////////////////////////////////
 
-struct JunctionAttribues
-{
+struct JunctionAttribues {
   int id;
   std::string name;
 
-  JunctionAttribues()
-    : id(-1)
-  {
-  }
+  JunctionAttribues() : id(-1) {}
 };
 
-struct JunctionConnectionAttributes
-{
+struct JunctionConnectionAttributes {
   int id;
   int incoming_road;
   int connecting_road;
   std::string contact_point;
 
   JunctionConnectionAttributes()
-    : id(-1)
-    , incoming_road(-1)
-    , connecting_road(-1)
-  {
-  }
+      : id(-1), incoming_road(-1), connecting_road(-1) {}
 };
 
-struct JunctionLaneLink
-{
+struct JunctionLaneLink {
   int from;
   int to;
 
-  JunctionLaneLink()
-    : from(-1)
-    , to(-1)
-  {
-  }
+  JunctionLaneLink() : from(-1), to(-1) {}
 };
 
-struct JunctionConnection
-{
+struct JunctionConnection {
   JunctionConnectionAttributes attributes;
   std::vector<JunctionLaneLink> links;
 };
 
-struct Junction
-{
+struct Junction {
   JunctionAttribues attributes;
   std::vector<JunctionConnection> connections;
 };
 
-struct BoxComponent
-{
+struct BoxComponent {
   double x_pos, y_pos, z_pos;
   double x_rot, y_rot, z_rot;
   double scale;
   BoxComponent()
-    : x_pos(0.0)
-    , y_pos(0.0)
-    , z_pos(0.0)
-    , x_rot(0.0)
-    , y_rot(0.0)
-    , z_rot(0.0)
-    , scale(1.0)
-  {
-  }
+      : x_pos(0.0), y_pos(0.0), z_pos(0.0), x_rot(0.0), y_rot(0.0), z_rot(0.0),
+        scale(1.0) {}
 };
 
-struct TrafficLight
-{
+struct TrafficLight {
   double x_pos, y_pos, z_pos;
   double x_rot, y_rot, z_rot;
   double scale;
   std::vector<BoxComponent> box_areas;
 
   TrafficLight()
-    : x_pos(0.0)
-    , y_pos(0.0)
-    , z_pos(0.0)
-    , x_rot(0.0)
-    , y_rot(0.0)
-    , z_rot(0.0)
-    , scale(1.0)
-  {
-  }
+      : x_pos(0.0), y_pos(0.0), z_pos(0.0), x_rot(0.0), y_rot(0.0), z_rot(0.0),
+        scale(1.0) {}
 };
 
-struct TrafficLightGroup
-{
+struct TrafficLightGroup {
   std::vector<TrafficLight> traffic_lights;
   double red_time, yellow_time, green_time;
 };
 
-struct TrafficSign
-{
+struct TrafficSign {
   double x_pos, y_pos, z_pos;
   double x_rot, y_rot, z_rot;
   double scale;
@@ -527,32 +408,22 @@ struct TrafficSign
   std::vector<BoxComponent> box_areas;
 
   TrafficSign()
-    : x_pos(0.0)
-    , y_pos(0.0)
-    , z_pos(0.0)
-    , x_rot(0.0)
-    , y_rot(0.0)
-    , z_rot(0.0)
-    , scale(1.0)
-    , speed(30)
-  {
-  }
+      : x_pos(0.0), y_pos(0.0), z_pos(0.0), x_rot(0.0), y_rot(0.0), z_rot(0.0),
+        scale(1.0), speed(30) {}
 };
 
 /////////////////////////////////////////////////////////////////
 namespace geom {
-struct GeoLocation
-{
+struct GeoLocation {
   double latitude{std::numeric_limits<double>::quiet_NaN()};
   double longitude{std::numeric_limits<double>::quiet_NaN()};
   double altitude{0.0};
   std::string projection;
 };
-}
+} // namespace geom
 
 /////////////////////////////////////////////////////////////////
-struct Lane
-{
+struct Lane {
   Id id{0u};
   LaneType type;
   Edge leftEdge;
@@ -569,8 +440,7 @@ struct Lane
   int junction{-1};
 };
 
-struct Landmark
-{
+struct Landmark {
   int id{-1};
   int type{-1};
   int subtype{-1};
@@ -580,8 +450,7 @@ struct Landmark
 using LaneMap = std::unordered_map<Id, Lane>;
 using LandmarkMap = std::unordered_map<int, Landmark>;
 
-struct OpenDriveData
-{
+struct OpenDriveData {
   geom::GeoLocation geoReference;
   std::vector<RoadInformation> roads;
   std::vector<Junction> junctions;
@@ -592,4 +461,4 @@ struct OpenDriveData
   LandmarkMap landmarks;
   std::unordered_map<int, std::vector<Id>> intersectionLaneIds;
 };
-}
+} // namespace opendrive

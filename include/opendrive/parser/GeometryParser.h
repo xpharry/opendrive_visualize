@@ -12,29 +12,35 @@
 
 #pragma once
 
-#include "opendrive/types.hpp"
 #include "opendrive/pugixml.hpp"
+#include "opendrive/types.hpp"
 
 namespace opendrive {
 namespace parser {
 
-class GeometryParser
-{
+class GeometryParser {
 private:
-  void ParseArc(const pugi::xml_node &xmlNode, opendrive::GeometryAttributesArc *out_geometry_arc);
+  void ParseArc(const pugi::xml_node &xmlNode,
+                opendrive::GeometryAttributesArc *out_geometry_arc);
 
-  void ParseLine(const pugi::xml_node &xmlNode, opendrive::GeometryAttributesLine *out_geometry_line);
+  void ParseLine(const pugi::xml_node &xmlNode,
+                 opendrive::GeometryAttributesLine *out_geometry_line);
 
-  void ParseSpiral(const pugi::xml_node &xmlNode, opendrive::GeometryAttributesSpiral *out_geometry_spiral);
+  void ParseSpiral(const pugi::xml_node &xmlNode,
+                   opendrive::GeometryAttributesSpiral *out_geometry_spiral);
 
-  void ParsePoly3(const pugi::xml_node &xmlNode, opendrive::GeometryAttributesPoly3 *out_geometry_poly3);
+  void ParsePoly3(const pugi::xml_node &xmlNode,
+                  opendrive::GeometryAttributesPoly3 *out_geometry_poly3);
 
-  void ParseParamPoly3(const pugi::xml_node &xmlNode,
-                       opendrive::GeometryAttributesParamPoly3 *out_geometry_param_poly3);
+  void ParseParamPoly3(
+      const pugi::xml_node &xmlNode,
+      opendrive::GeometryAttributesParamPoly3 *out_geometry_param_poly3);
 
 public:
   static void Parse(const pugi::xml_node &xmlNode,
-                    std::vector<std::unique_ptr<opendrive::GeometryAttributes>> &out_geometry_attributes);
+                    std::vector<std::unique_ptr<opendrive::GeometryAttributes>>
+                        &out_geometry_attributes);
 };
-}
-}
+
+} // namespace parser
+} // namespace opendrive

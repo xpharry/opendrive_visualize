@@ -12,21 +12,26 @@
 
 #pragma once
 
-#include "opendrive/types.hpp"
 #include "opendrive/pugixml.hpp"
+#include "opendrive/types.hpp"
 
 namespace opendrive {
 namespace parser {
 
-class ProfilesParser
-{
+class ProfilesParser {
 private:
-  void ParseElevation(const pugi::xml_node &xmlNode, std::vector<opendrive::ElevationProfile> &out_elevation_profile);
+  void ParseElevation(
+      const pugi::xml_node &xmlNode,
+      std::vector<opendrive::ElevationProfile> &out_elevation_profile);
 
-  void ParseLateral(const pugi::xml_node &xmlNode, std::vector<opendrive::LateralProfile> &out_lateral_profile);
+  void
+  ParseLateral(const pugi::xml_node &xmlNode,
+               std::vector<opendrive::LateralProfile> &out_lateral_profile);
 
 public:
-  static void Parse(const pugi::xml_node &xmlNode, opendrive::RoadProfiles &out_road_profiles);
+  static void Parse(const pugi::xml_node &xmlNode,
+                    opendrive::RoadProfiles &out_road_profiles);
 };
-}
-}
+
+} // namespace parser
+} // namespace opendrive

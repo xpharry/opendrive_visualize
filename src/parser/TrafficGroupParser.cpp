@@ -13,26 +13,28 @@
 #include "opendrive/parser/TrafficGroupParser.h"
 #include <iostream>
 
-void opendrive::parser::TrafficGroupParser::Parse(const pugi::xml_node &xmlNode,
-                                                  std::vector<opendrive::TrafficLightGroup> &out_trafficLights)
-{
+void opendrive::parser::TrafficGroupParser::Parse(
+    const pugi::xml_node &xmlNode,
+    std::vector<opendrive::TrafficLightGroup> &out_trafficLights) {
   opendrive::parser::TrafficGroupParser parser;
   opendrive::TrafficLightGroup traffic_light_group;
 
-  traffic_light_group.red_time = std::atoi(xmlNode.attribute("redTime").value());
-  traffic_light_group.yellow_time = std::atoi(xmlNode.attribute("yellowTime").value());
-  traffic_light_group.green_time = std::atoi(xmlNode.attribute("greenTime").value());
+  traffic_light_group.red_time =
+      std::atoi(xmlNode.attribute("redTime").value());
+  traffic_light_group.yellow_time =
+      std::atoi(xmlNode.attribute("yellowTime").value());
+  traffic_light_group.green_time =
+      std::atoi(xmlNode.attribute("greenTime").value());
 
   parser.ParseTrafficLight(xmlNode, traffic_light_group.traffic_lights);
   out_trafficLights.emplace_back(traffic_light_group);
 }
 
-void opendrive::parser::TrafficGroupParser::ParseTrafficLight(const pugi::xml_node &xmlNode,
-                                                              std::vector<opendrive::TrafficLight> &out_trafficLight)
-{
-  for (pugi::xml_node trafficlight = xmlNode.child("trafficlight"); trafficlight;
-       trafficlight = trafficlight.next_sibling("trafficlight"))
-  {
+void opendrive::parser::TrafficGroupParser::ParseTrafficLight(
+    const pugi::xml_node &xmlNode,
+    std::vector<opendrive::TrafficLight> &out_trafficLight) {
+  for (pugi::xml_node trafficlight = xmlNode.child("trafficlight");
+       trafficlight; trafficlight = trafficlight.next_sibling("trafficlight")) {
     opendrive::TrafficLight jTrafficlight;
 
     jTrafficlight.x_pos = std::stod(trafficlight.attribute("xPos").value());
@@ -48,12 +50,11 @@ void opendrive::parser::TrafficGroupParser::ParseTrafficLight(const pugi::xml_no
   }
 }
 
-void opendrive::parser::TrafficGroupParser::ParseBoxAreas(const pugi::xml_node &xmlNode,
-                                                          std::vector<opendrive::BoxComponent> &out_boxcomponent)
-{
+void opendrive::parser::TrafficGroupParser::ParseBoxAreas(
+    const pugi::xml_node &xmlNode,
+    std::vector<opendrive::BoxComponent> &out_boxcomponent) {
   for (pugi::xml_node boxcomponent = xmlNode.child("tfBox"); boxcomponent;
-       boxcomponent = boxcomponent.next_sibling("tfBox"))
-  {
+       boxcomponent = boxcomponent.next_sibling("tfBox")) {
     opendrive::BoxComponent jBoxComponent;
 
     jBoxComponent.x_pos = std::stod(boxcomponent.attribute("xPos").value());

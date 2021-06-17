@@ -9,74 +9,52 @@
 
 namespace commonroad {
 
+enum class ObstacleRole : unsigned int { DYNAMIC, STATIC };
+enum class ObstacleType : unsigned int { CAR, TRAM };
 
-enum class ObstacleRole : unsigned int
-{
-  DYNAMIC,
-  STATIC
-};
-enum class ObstacleType : unsigned int
-{
-  CAR,
-  TRAM
-};
+enum class ObstacleGeometry : unsigned int { RECTANGLE, CIRCLE };
 
-enum class ObstacleGeometry : unsigned int
-{
-  RECTANGLE,
-  CIRCLE
-};
-
-struct Orientation
-{
+struct Orientation {
   double exact;
 };
 
-struct Time
-{
+struct Time {
   int exact;
 };
 
-struct Velocity
-{
+struct Velocity {
   double exact;
 };
 
-struct Acceleration
-{
+struct Acceleration {
   double exact;
 };
 
-struct Point
-{
+struct Point {
   double x;
   double y;
 };
 
-struct Position
-{
+struct Position {
   Point point;
 };
 
-struct ObstacleShape
-{
+struct ObstacleShape {
   ObstacleGeometry geometry;
   double length;
   double width;
 };
 
-struct ObstacleState
-{
+struct ObstacleState {
   Position position;
   Orientation orientation;
   Time time;
   Velocity velocity;
   Acceleration acceleration;
 };
-struct ObstacleInitialState : public ObstacleState{};
+struct ObstacleInitialState : public ObstacleState {};
 
-struct ObstacleInformation
-{
+struct ObstacleInformation {
   int id;
   ObstacleRole role;
   ObstacleType type;
@@ -86,9 +64,8 @@ struct ObstacleInformation
   std::vector<ObstacleState> trajectory;
 };
 
-struct CommonRoadData
-{
+struct CommonRoadData {
   std::vector<ObstacleInformation> obstacles;
 };
 
-}
+} // namespace commonroad

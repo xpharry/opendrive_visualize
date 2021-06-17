@@ -18,10 +18,10 @@ namespace opendrive {
 namespace geometry {
 
 /**
- * @brief DirectedPoint is composed of a 2 dimensional position and an orientation
+ * @brief DirectedPoint is composed of a 2 dimensional position and an
+ * orientation
  */
-struct DirectedPoint
-{
+struct DirectedPoint {
   DirectedPoint();
   DirectedPoint(const Point &point, double t);
   DirectedPoint(double x, double y, double t);
@@ -30,21 +30,20 @@ struct DirectedPoint
   double tangent = 0.0; // [radians]
 
   /**
-   * @brief Shifts the point by lateral_offset meters in the normal direction of the tangent
+   * @brief Shifts the point by lateral_offset meters in the normal direction of
+   * the tangent
    */
   void ApplyLateralOffset(double lateral_offset);
 
   /**
    * @brief Compares two points, returns true if their parameters are identical
    */
-  friend bool operator==(const DirectedPoint &lhs, const DirectedPoint &rhs)
-  {
+  friend bool operator==(const DirectedPoint &lhs, const DirectedPoint &rhs) {
     return (lhs.location == rhs.location) && (lhs.tangent == rhs.tangent);
   }
 };
 
-class Geometry
-{
+class Geometry {
 public:
   /**
    * @brief Returns the GeometryType associated to this geometry.
@@ -74,12 +73,14 @@ public:
   virtual ~Geometry() = default;
 
   /**
-   * @brief Evaluates the geometry at a certain distance from the start position.
+   * @brief Evaluates the geometry at a certain distance from the start
+   * position.
    */
   virtual const DirectedPoint PosFromDist(double dist) const = 0;
 
 protected:
-  Geometry(GeometryType type, double start_offset, double length, double heading, const Point &start_pos);
+  Geometry(GeometryType type, double start_offset, double length,
+           double heading, const Point &start_pos);
 
 protected:
   GeometryType _type; // geometry type
@@ -91,18 +92,18 @@ protected:
   Point _start_position; // [meters]
 };
 
-class GeometryLine : public Geometry
-{
+class GeometryLine : public Geometry {
 public:
-  GeometryLine(double start_offset, double length, double heading, const Point &start_pos);
+  GeometryLine(double start_offset, double length, double heading,
+               const Point &start_pos);
 
   const DirectedPoint PosFromDist(const double dist) const override;
 };
 
-class GeometryArc : public Geometry
-{
+class GeometryArc : public Geometry {
 public:
-  GeometryArc(double start_offset, double length, double heading, const Point &start_pos, double curv);
+  GeometryArc(double start_offset, double length, double heading,
+              const Point &start_pos, double curv);
 
   const DirectedPoint PosFromDist(double dist) const override;
 
@@ -112,11 +113,10 @@ private:
   double _curvature;
 };
 
-class GeometryPoly3 : public Geometry
-{
+class GeometryPoly3 : public Geometry {
 public:
-  GeometryPoly3(
-    double start_offset, double length, double heading, const Point &start_pos, double a, double b, double c, double d);
+  GeometryPoly3(double start_offset, double length, double heading,
+                const Point &start_pos, double a, double b, double c, double d);
 
   const DirectedPoint PosFromDist(const double dist) const override;
 
@@ -127,21 +127,11 @@ private:
   double _d;
 };
 
-class GeometryParamPoly3 : public Geometry
-{
+class GeometryParamPoly3 : public Geometry {
 public:
-  GeometryParamPoly3(double start_offset,
-                     double length,
-                     double heading,
-                     const Point &start_pos,
-                     double aU,
-                     double bU,
-                     double cU,
-                     double dU,
-                     double aV,
-                     double bV,
-                     double cV,
-                     double dV);
+  GeometryParamPoly3(double start_offset, double length, double heading,
+                     const Point &start_pos, double aU, double bU, double cU,
+                     double dU, double aV, double bV, double cV, double dV);
 
   const DirectedPoint PosFromDist(const double dist) const override;
 
@@ -156,5 +146,5 @@ private:
   double _dV;
 };
 
-} // namespace
-} // namespace
+} // namespace geometry
+} // namespace opendrive

@@ -1,1 +1,2 @@
-pathToOpenDrive: "/home/ros/catkin_ws/src/opendrive_visualize/map/DEU_Muc-9_2_T-1.xodr"
+# pathToOpenDrive: "/home/pxu/workspace/opendrive_visualize/map/DEU_Muc-9_2_T-1.xodr"
+pathToOpenDrive: "/home/pxu/workspace/carla-0.9.8/CARLA_0.9.8/CarlaUE4/Content/Carla/Maps/OpenDrive/Town01.xodr"

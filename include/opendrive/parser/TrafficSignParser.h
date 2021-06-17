@@ -12,19 +12,21 @@
 
 #pragma once
 
-#include "opendrive/types.hpp"
 #include "opendrive/pugixml.hpp"
+#include "opendrive/types.hpp"
 
 namespace opendrive {
 namespace parser {
 
-class TrafficSignParser
-{
+class TrafficSignParser {
 private:
-  void ParseBoxAreas(const pugi::xml_node &xmlNode, std::vector<opendrive::BoxComponent> &out_boxareas);
+  void ParseBoxAreas(const pugi::xml_node &xmlNode,
+                     std::vector<opendrive::BoxComponent> &out_boxareas);
 
 public:
-  static void Parse(const pugi::xml_node &xmlNode, std::vector<opendrive::TrafficSign> &out_trafficsigns);
+  static void Parse(const pugi::xml_node &xmlNode,
+                    std::vector<opendrive::TrafficSign> &out_trafficsigns);
 };
-}
-}
+
+} // namespace parser
+} // namespace opendrive

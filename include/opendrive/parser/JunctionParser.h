@@ -12,21 +12,25 @@
 
 #pragma once
 
-#include "opendrive/types.hpp"
 #include "opendrive/pugixml.hpp"
+#include "opendrive/types.hpp"
 
 namespace opendrive {
 namespace parser {
 
-class JunctionParser
-{
+class JunctionParser {
 private:
-  void ParseConnection(const pugi::xml_node &xmlNode, std::vector<opendrive::JunctionConnection> &out_connections);
+  void
+  ParseConnection(const pugi::xml_node &xmlNode,
+                  std::vector<opendrive::JunctionConnection> &out_connections);
 
-  void ParseLaneLink(const pugi::xml_node &xmlNode, std::vector<opendrive::JunctionLaneLink> &out_lane_link);
+  void ParseLaneLink(const pugi::xml_node &xmlNode,
+                     std::vector<opendrive::JunctionLaneLink> &out_lane_link);
 
 public:
-  static void Parse(const pugi::xml_node &xmlNode, std::vector<opendrive::Junction> &out_junction);
+  static void Parse(const pugi::xml_node &xmlNode,
+                    std::vector<opendrive::Junction> &out_junction);
 };
-}
-}
+
+} // namespace parser
+} // namespace opendrive

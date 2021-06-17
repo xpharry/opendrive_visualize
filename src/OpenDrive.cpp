@@ -17,18 +17,19 @@
 
 namespace opendrive {
 
-bool Load(std::string const &file, opendrive::OpenDriveData &open_drive_data)
-{
-  return parser::OpenDriveParser::Parse(file.c_str(), open_drive_data, parser::XmlInputType::FILE);
+bool Load(std::string const &file, opendrive::OpenDriveData &open_drive_data) {
+  return parser::OpenDriveParser::Parse(file.c_str(), open_drive_data,
+                                        parser::XmlInputType::FILE);
 }
 
-bool Parse(std::string const &content, opendrive::OpenDriveData &open_drive_data)
-{
-  return parser::OpenDriveParser::Parse(content.c_str(), open_drive_data, parser::XmlInputType::CONTENT);
+bool Parse(std::string const &content,
+           opendrive::OpenDriveData &open_drive_data) {
+  return parser::OpenDriveParser::Parse(content.c_str(), open_drive_data,
+                                        parser::XmlInputType::CONTENT);
 }
 
-bool GenerateLaneMap(opendrive::OpenDriveData &open_drive_data, double const overlapMargin)
-{
+bool GenerateLaneMap(opendrive::OpenDriveData &open_drive_data,
+                     double const overlapMargin) {
   return geometry::GenerateGeometry(open_drive_data, overlapMargin);
 }
 }

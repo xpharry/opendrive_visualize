@@ -12,17 +12,17 @@
 
 #pragma once
 
-#include <string>
 #include "opendrive/types.hpp"
+#include <string>
 
 namespace opendrive {
 namespace parser {
 
-class GeoReferenceParser
-{
+class GeoReferenceParser {
 public:
-  static ::opendrive::geom::GeoLocation Parse(const std::string &geo_reference_string);
+  static ::opendrive::geom::GeoLocation
+  Parse(const std::string &geo_reference_string);
 };
 
-} // parser
-} // opendrive
+} // namespace parser
+} // namespace opendrive
